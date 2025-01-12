@@ -23,6 +23,9 @@ on:
   schedule:
     - cron: '38 * * * *'
 
+concurrency:
+  group: ${{ github.workflow }}
+
 env:
   cache_archive: renovate_cache.tar.gz
   cache_dir: /tmp/renovate/cache/renovate/repository
