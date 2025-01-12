@@ -1,0 +1,76 @@
+name: Renovate for akontainers@gitlab.com
+on:
+  workflow_dispatch:
+    inputs:
+      repoCache:
+        description: 'Reset or disable the cache?'
+        type: choice
+        default: enabled
+        options:
+          - enabled
+          - disabled
+          - reset
+      logLevel:
+        description: 'Log level'
+        default: 'INFO'
+        type: choice
+        options:
+          - DEBUG
+          - INFO
+          - WARN
+          - ERROR
+          - FATAL
+  schedule:
+    - cron: '55 * * * *'
+
+env:
+  cache_archive: renovate_cache.tar.gz
+  cache_dir: /tmp/renovate/cache/renovate/repository
+  cache_key: akontainers@gitlab.com_renovate-cache
+
+jobs:
+  renovate:
+    name: Renovate
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+      
+      - uses: dawidd6/action-download-artifact@80620a5d27ce0ae443b965134db88467fc607b43 # v7
+        if: github.event.inputs.repoCache != 'disabled'
+        continue-on-error: true
+        with:
+          name: ${{ env.cache_key }}
+          path: cache-download
+          github_token: ${{ secrets.RENOVATE_GITHUB_TOKEN }}
+      
+      - name: Extract renovate cache
+        run: |
+          set -x
+          if [ ! -d cache-download ] ; then
+            echo "No cache found."
+            exit 0
+          fi
+          mkdir -p $cache_dir
+          tar -xzf cache-download/$cache_archive -C $cache_dir
+          sudo chown -R 12021:0 /tmp/renovate/
+          ls -R $cache_dir
+      
+      - uses: renovatebot/github-action@f24426972367551f3391720e34317783a92fd32b # v41.0.8
+        with:
+          configurationFile: configs/akontainers.gitlab.json
+          token: ${{ secrets.RENOVATE_GITLAB_TOKEN }}
+        env:
+          RENOVATE_REPOSITORY_CACHE: ${{ github.event.inputs.repoCache || 'enabled' }}
+          GITHUB_COM_TOKEN: ${{ secrets.RENOVATE_GITHUB_TOKEN }}
+      
+      - name: Compress renovate cache
+        run: |
+          ls $cache_dir
+          tar -czvf $cache_archive -C $cache_dir .
+      
+      - uses: actions/upload-artifact@65c4c4a1ddee5b72f698fdd19549f0f0fb45cf08 # v4.6.0
+        if: github.event.inputs.repoCache != 'disabled'
+        with:
+          name: ${{ env.cache_key }}
+          path: ${{ env.cache_archive }}
+          retention-days: 1
