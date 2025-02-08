@@ -41,7 +41,7 @@ jobs:
         run: |
           renovate-config-validator --strict "$RENOVATE_CONFIGS"
         env:
-          RENOVATE_CONFIGS: |
+          RENOVATE_CONFIGS: >-
             renovate.json
             configs/akontainers.gitlab.json
             configs/atemplates.gitlab.json
