@@ -39,9 +39,11 @@ jobs:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
       - name: Lint renovate configs
         run: |
+          status=0
           for config in $RENOVATE_CONFIGS; do
-            renovate-config-validator "$config"
+            renovate-config-validator "$config" || status=1
           done
+          exit $status
         env:
           RENOVATE_CONFIGS: |
             renovate.json
