@@ -6,7 +6,7 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  lint/actionlint:
+  lint_actionlint:
     name: Lint with actionlint
     runs-on: ubuntu-24.04
     permissions:
@@ -15,7 +15,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4.2.2
       - uses: devops-actions/actionlint@v0.1.3
-  lint/prettier:
+  lint_prettier:
     name: Lint with prettier
     runs-on: ubuntu-24.04
     permissions:
