@@ -5,7 +5,7 @@
     "helpers:pinGitHubActionDigestsToSemver",
     ":automergeMinor"
   ],
-  "automergeType": "branch",
+  "automergeType": "Test",
   "platformAutomerge": false,
   "assignees": ["akorezin"]
 }
