@@ -1,7 +1,5 @@
 {
   "platform": "gitlab",
   "autodiscover": true,
-  "autodiscoverNamespaces": [
-    "atemplates"
-  ]
+  "autodiscoverNamespaces": ["atemplates"]
 }
