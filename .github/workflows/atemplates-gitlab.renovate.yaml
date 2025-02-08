@@ -3,7 +3,7 @@ on:
   workflow_dispatch:
     inputs:
       repoCache:
-        description: 'Reset or disable the cache?'
+        description: Reset or disable the cache?
         type: choice
         default: enabled
         options:
@@ -11,8 +11,8 @@ on:
           - disabled
           - reset
       logLevel:
-        description: 'Log level'
-        default: 'INFO'
+        description: Log level
+        default: INFO
         type: choice
         options:
           - DEBUG
@@ -21,7 +21,7 @@ on:
           - ERROR
           - FATAL
   schedule:
-    - cron: '38 * * * *'
+    - cron: "38 * * * *"
 
 concurrency:
   group: ${{ github.workflow }}
@@ -66,7 +66,7 @@ jobs:
           RENOVATE_REPOSITORY_CACHE: ${{ github.event.inputs.repoCache || 'enabled' }}
           GITHUB_COM_TOKEN: ${{ secrets.RENOVATE_GITHUB_TOKEN }}
           LOG_LEVEL: ${{ github.event.inputs.logLevel || 'INFO' }}
-      
+
       - name: Compress renovate cache
         run: |
           ls "$cache_dir"

@@ -1,7 +1,7 @@
 {
-    "platform": "gitlab",
-    "autodiscover": true,
-    "autodiscoverNamespaces": [
-        "akontainers"
-    ]
+  "platform": "gitlab",
+  "autodiscover": true,
+  "autodiscoverNamespaces": [
+    "akontainers"
+  ]
 }
