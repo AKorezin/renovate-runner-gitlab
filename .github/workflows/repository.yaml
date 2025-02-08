@@ -27,3 +27,22 @@ jobs:
           dry: true
           clean_node_folder: false
           prettier_options: --write .
+  lint_renovate:
+    name: Lint with renovate config validator
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: read
+    container:
+      image: ghcr.io/renovatebot/renovate:39
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+      - name: Lint renovate configs
+        run: |
+          for config in $RENOVATE_CONFIGS; do
+            renovate-config-validator "$config"
+          done
+        env:
+          RENOVATE_CONFIGS: |
+            renovate.json
+            configs/akontainers.gitlab.json
+            configs/atemplates.gitlab.json
