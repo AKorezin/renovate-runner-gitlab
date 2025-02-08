@@ -65,6 +65,7 @@ jobs:
         env:
           RENOVATE_REPOSITORY_CACHE: ${{ github.event.inputs.repoCache || 'enabled' }}
           GITHUB_COM_TOKEN: ${{ secrets.RENOVATE_GITHUB_TOKEN }}
+          LOG_LEVEL: ${{ github.event.inputs.logLevel || 'INFO' }}
       
       - name: Compress renovate cache
         run: |
