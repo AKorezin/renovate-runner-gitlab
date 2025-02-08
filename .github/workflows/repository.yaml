@@ -39,9 +39,10 @@ jobs:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
       - name: Lint renovate configs
         run: |
-          renovate-config-validator --strict "$RENOVATE_CONFIGS"
+          readarray -t configs <<< "$RENOVATE_CONFIGS"
+          renovate-config-validator --strict "${configs[@]}"
         env:
-          RENOVATE_CONFIGS: >-
+          RENOVATE_CONFIGS: |
             renovate.json
             configs/akontainers.gitlab.json
             configs/atemplates.gitlab.json
