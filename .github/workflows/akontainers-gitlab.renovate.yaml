@@ -59,6 +59,7 @@ jobs:
           ls -R "$cache_dir"
 
       - uses: renovatebot/github-action@e084b5ac6fd201023db6dd7743aec023babb02c8 # v41.0.13
+        timeout-minutes: 20
         with:
           configurationFile: configs/akontainers.gitlab.json
           token: ${{ secrets.RENOVATE_GITLAB_TOKEN }}
