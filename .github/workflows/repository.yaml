@@ -13,7 +13,7 @@ jobs:
       contents: read
       pull-requests: write
     steps:
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
       - uses: devops-actions/actionlint@9fb9c192862f19e684586ca84b500461bcd8a541 # v0.1.12
   lint_prettier:
     name: Lint with prettier
@@ -21,7 +21,7 @@ jobs:
     permissions:
       contents: read
     steps:
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
       - uses: creyD/prettier_action@31355f8eef017f8aeba2e0bc09d8502b13dbbad1 # v4.3
         with:
           dry: true
@@ -33,7 +33,7 @@ jobs:
     permissions:
       contents: read
     steps:
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
       - uses: suzuki-shunsuke/github-action-renovate-config-validator@ee9f69e1f683ed0d08225086482b34fc9abe9300 # v2.1.0
         with:
           strict: true
@@ -48,7 +48,7 @@ jobs:
       security-events: write
       contents: read
     steps:
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
       - uses: boostsecurityio/poutine-action@e240ebd3eff8b2db5a8e5f6b28f58739d7db2247 # v1.1.4
       - uses: github/codeql-action/upload-sarif@87557b9c84dde89fdd9b10e88954ac2f4248e463 # v4.36.1
         with:
